@@ -18,9 +18,9 @@ class HomeController extends Controller
         $categoryother = Category::where('parent_id','!=',0)->paginate(5);
         $dataProduct = Product::orderBy('created_at','ASC')->paginate(8);
         $idin      = [];
-        $producBestSaler = Product::where('status',1)->orderBy('promotional_price','desc')->paginate(4);	
-        $producSaler = Product::where('status',1)->orderBy('promotional_price','desc')->get();	
-        $producNew = Product::where('status',1)->orderBy('created_at','asc')->get();	
+        $producBestSaler = Product::where('status',1)->orderBy('promotional_price','desc')->paginate(4);
+        $producSaler = Product::where('status',1)->orderBy('promotional_price','desc')->get();
+        $producNew = Product::where('status',1)->orderBy('created_at','asc')->get();
         $twoCategoryFirst = Category::where('parent_id','!=',0)->paginate(2);
         foreach ($twoCategoryFirst as $value) {
            if (in_array($value->id, $idin) == false) {
@@ -68,7 +68,7 @@ class HomeController extends Controller
           $product_img    = ProductImg::where(['product_id' => $productUrl->id])->get();
           $sizeData = ProductAttr::with('size')->where('product_id', $productUrl->id)->get();
           $categorynoneUrl = Category::where('parent_id','!=',0)->get();
-          $producSaler = Product::orderBy('promotional_price','desc')->paginate(4); 
+          $producSaler = Product::orderBy('promotional_price','desc')->paginate(4);
             foreach ($sizeData as $item) {
                 if (in_array($item->size_id, $idsize) == false) {
                     $idsize[] = $item->size_id;
@@ -106,7 +106,7 @@ class HomeController extends Controller
                 'status' => '_success',
                 'msg'    => 'Cảm ơn bạn đã liên hệ',
             );
-            return json_encode($msg); 
+            return json_encode($msg);
         }
         else {
             $msg = array(

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function view(){	
+    public function view(){
     	return view('admin.account.view');
     }
     public function changepass(Request $req)
@@ -69,7 +69,6 @@ class ProfileController extends Controller
                 if (isset($old_avatar) && $old_avatar !='') {
                      unlink("public/".$old_avatar);
                 }
-               
                 $msg = array(
                     'status'            => '_success'
                 );

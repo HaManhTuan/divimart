@@ -1,5 +1,6 @@
 @extends('layouts.admin.admin_layout')
 @section('content')
+
 <style>
     table tr:hover{
         cursor: pointer;
@@ -72,7 +73,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                         <tbody>
                             @foreach ($ordersNews as $item)
                             <tr class='clickable-row' data-href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'>
-                           
+
                                 <td>{{ $item->created_at  }}</td>
                                 <td>{{ $item->name  }}</td>
                                 <td>{{ $item->phone  }}</td>
@@ -111,7 +112,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                     <tbody>
                             @foreach ($ordersTrans as $item)
                                 <tr class='clickable-row' data-href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'>
-                               
+
                                     <td>{{ $item->created_at  }}</td>
                                     <td>{{ $item->name  }}</td>
                                     <td>{{ $item->phone  }}</td>
@@ -248,7 +249,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                     <tbody>
                             @foreach ($dataOrderTransToday as $item)
                                 <tr class='clickable-row' data-href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'>
-                               
+
                                     <td>{{ $item->created_at  }}</td>
                                     <td>{{ $item->name  }}</td>
                                     <td>{{ $item->phone  }}</td>
@@ -286,7 +287,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                     <tbody>
                             @foreach ($dataOrderSucessToday as $item)
                                 <tr class='clickable-row' data-href='{{ url('admin/order/view-orderdetail/'.$item->id) }}'>
-                               
+
                                     <td>{{ $item->created_at  }}</td>
                                     <td>{{ $item->name  }}</td>
                                     <td>{{ $item->phone  }}</td>
@@ -422,7 +423,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                     <canvas id="myChartOrderQuater" width="400" height="200"></canvas>
                 </div>
             </section>
-            
+
         </div>
         <div class="col-lg-6">
             <section class="box box-success box-solid">
@@ -470,7 +471,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                           <td>{{ $value->id }}</td>
                           <td>{{ $value->name }}</td>
                           <td><button type="button" class="btn btn-info btn-xs">{{ $value->buy_count }}</button></td>
-                        </tr> 
+                        </tr>
                         @endforeach
                       </tbody>
                   </table>
@@ -505,7 +506,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                           <td>{{ $value->id }}</td>
                           <td>{{ $value->name }}</td>
                           <td><button type="button" class="btn btn-info btn-xs">{{ $value->count_view }}</button></td>
-                        </tr> 
+                        </tr>
                         @endforeach
                       </tbody>
                   </table>
@@ -540,7 +541,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                           <td>{{ $value->id }}</td>
                           <td>{{ $value->product->name }}-Size:{{ $value->size->size }}</td>
                           <td><button type="button" class="btn btn-info btn-xs">{{ $value->stock }}</button></td>
-                        </tr> 
+                        </tr>
                         @endforeach
                       </tbody>
                   </table>

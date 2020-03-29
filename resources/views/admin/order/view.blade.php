@@ -66,7 +66,7 @@
                                        <select name="coupon" class="form-control" id="coupon"  >
                                           <option selected="" disabled="">--Chọn--</option>
                                           @foreach ($coupon as $item)
-                                          <option value="{{ $item->coupon_code }}">{{ $item->coupon_code }} - 
+                                          <option value="{{ $item->coupon_code }}">{{ $item->coupon_code }} -
                                              @if ($item->amount_type="Persentage")
                                              {{ $item->amount}} %
                                              @else
@@ -492,13 +492,13 @@
                                title: data.msg
                              })
                            }
-   
+
                        },
                        error: function(err) {
                            console.log(err);
                        }
                    });
-   
+
                }
            });
        });
@@ -553,7 +553,7 @@
                        });
                    }
                });
-   
+
            }
        });
    });
@@ -607,7 +607,7 @@
                        });
                    }
                });
-   
+
            }
        });
    });
@@ -652,11 +652,11 @@
                        });
                    }
                });
-   
+
            }
        });
    });
-   
+
 </script>
 @endsection
 

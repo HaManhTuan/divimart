@@ -20,7 +20,7 @@ $count_cate = DB::table('categories')->count();
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              
+
                     <button type="button" class="btn btn-success btn-xs pull-left" data-toggle="modal" data-target="#add-category-modal">
                     <i class="fa fa-plus"></i>
                         Thêm danh mục
@@ -29,7 +29,7 @@ $count_cate = DB::table('categories')->count();
                         <i class="fas fa-trash-alt mr-2"></i>
                         Xóa <span></span> mục đã chọn?
                     </button>
-               
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">

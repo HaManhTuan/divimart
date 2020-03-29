@@ -10,7 +10,7 @@ use App\Config;
 use Illuminate\Support\Str;
 class ConfigController extends Controller
 {
-    public function view(){	
+    public function view(){
     	$config = Config::find(1);
     	return view('admin.config',compact('config'));
     }
@@ -25,10 +25,10 @@ class ConfigController extends Controller
 		}
 		$file->move("public/uploads/images/config", $image);
 		$request['logo'] = $image;
-		
-		unlink("public/uploads/images/config/".$req->logo_old);
 
-		
+		 unlink("public/uploads/images/config/".$req->logo_old);
+
+
 		} else {
 		$request['logo'] = $req->logo_old;
 		}

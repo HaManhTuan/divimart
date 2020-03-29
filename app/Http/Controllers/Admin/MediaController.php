@@ -16,7 +16,7 @@ class MediaController extends Controller {
 	public function add(Request $req) {
 		if ($req->isMethod('post')) {
 			$media       = new Media();
-			$media->name = $req->name;
+			// $media->name = $req->name;
 			$target_save = "public/uploads/images/sliders/";
 			if ($req->hasFile('image')) {
 				$file  = $req->file('image');
@@ -31,9 +31,9 @@ class MediaController extends Controller {
 				$req->image = "";
 			}
 			$media->image  = $req->image;
-			$media->h6     = $req->h6;
-			$media->h2     = $req->h2;
-			$media->button = $req->button;
+			// $media->h6     = $req->h6;
+			// $media->h2     = $req->h2;
+			// $media->button = $req->button;
 
 			if ($media->save()) {
 				$msg = array(

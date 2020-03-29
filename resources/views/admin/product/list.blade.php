@@ -16,29 +16,18 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-             
+
                     <button type="button" class="btn btn-success btn-xs pull-right" onclick='window.location.href="{{ url('admin/product/add') }}"'>
                         <i class="fa fa-plus"></i>
-                        Thêm sản phẩm 
+                        Thêm sản phẩm
                     </button>
-                    <button class="btn btn-danger float-right" style="display: none;padding-top: 5px;" id="btn-del-all" data-action="{{url("admin/category/delete")}}">
-                        <i class="fas fa-trash-alt mr-2"></i>
-                        Xóa <span></span> mục đã chọn?
-                    </button>
-  
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                   <table id="table-product" class="table table-bordered">
                         <thead>
                         <tr>
-                          <th>
-                            <div class="checkbox"><input id="checkbox1" type="checkbox" data-check-all=""  value="checkall" data-action="checkall" class="checkone" style="margin-left: 0px !important;">
-                            <label for="checkbox1"></label>
-                            </div>
-                            </th>
                             <th>Sản phẩm</th>
-                            <th>Danh mục</th>
                             <th>Giá</th>
                             <th class="no-sort hidden-xs">Ảnh</th>
                             <th>Trạng thái</th>
@@ -48,14 +37,11 @@
                         <tbody>
                       @foreach ($products as $key => $product)
                         <tr id="dd-item-{{ $product->id }}" class="tr">
-                              <td>
-                                    <div class="checkbox">
-                                        <input id="checkbox{{ $product->id }}" type="checkbox" class="checkone" data-id="{{ $product->id }}" style="margin-left: 0px !important;">
-                                        <label for="checkbox{{ $product->id }}"></label>
-                                    </div>
-                                </td>
-                            <th>{{ $product->name }}</th>
-                            <th>{{ $product->category->name }}</th>
+                            <th>{{ $product->name }} <br>
+                                -----------------------
+                                <br>
+                            Danh mục : <span>{{ $product->category->name }}</span></th>
+
                             <th>
                               <p>
                          Giá gốc: <span class="text-danger" style="font-weight: bold;"> {{ number_format($product->price) }} VNĐ</span>
@@ -100,7 +86,7 @@
 aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog">
   <div class="modal-content">
-  
+
       <div class="modal-header">
         <h4 class="modal-title">Add Size  &quot;
           <span data-ajax="edit" data-field="html"></span>&quot;
@@ -108,33 +94,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
       <div class="modal-body">
-
-{{--           <a href="#" class="btn-all btn btn-success" data-action="checkall" id="checkboxmodal"><i class="glyphicon glyphicon-plus" style="color:white;margin-right: 5px;"></i>Chọn hết</a> |
-          <a href="#" class="btn-delall btn btn-danger" data-action="nonecheckall" id="checkboxnonemodal"><i class="glyphicon glyphicon-trash" style="color:white;margin-right: 5px;"></i>Xóa hết</a> |
-          <button type="submit" class="btn btn-info waves-effect waves-light" id="btn-save-size"><small class="ti-pencil-alt mr-2"></small>Add Size</button> --}}
-   
         <div class="row" style="margin-top: 5px;">
-{{--           <div class="col-md-4">
-            <div class="form-group">
-                <form action="{{ url('admin/product/add-size') }}" method="post" id="id-add-size" class="add-size" role="form" onsubmit="return false;" enctype='multipart/form-data'>
-                    <div class="row">
-                          <input type="hidden" name="product_id" value="" class="product_id">
-                           <input type="hidden" name="stock" value="" class="stock">
-                      @foreach($size as $size)
-                      <div class="col-md-6">
-                          <div>
-                            <input type="checkbox" class="checkonemodel" id="checkboxmodal-{{ $size->id }}" name="size[]" id="size" value="{{ $size->id }}"> {{ $size->size }}
-                          </div>
-                            <label class="container-checkbox" style="margin-left: 10px;">{{ $size->size }}
-                              <input type="checkbox" class="checkonemodel" name="size[]" id="size" value="{{ $size->id }}">
-                              <span class="checkmark"></span>
-                            </label>
-                      </div>
-                      @endforeach
-                    </div>
-                  </form>
-            </div>
-          </div> --}}
            <form action="{{ url('admin/product/edit-stock') }}" method="post" id="frm-edit-stock" class="add-size" role="form" onsubmit="return false;" enctype='multipart/form-data'>
           <div class="col-md-8 table-size">
           </div>
@@ -151,7 +111,6 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 <style>
     .container-checkbox {
-
   position: relative;
   padding-left: 25px;
   margin-bottom: 12px;

@@ -65,7 +65,7 @@ class AdminController extends Controller
       //Đơn hàng đã chuyển hôm nay
       $countOrderSucessToday = Order::with('orders')->where(['updated_at' => $range,'order_status' => 4])->count();
       //Tổng số đơn hàng đã chuyển ngày hôm nay
-      $dataOrderSucessToday = Order::with('orders')->where(['updated_at' => $range,'order_status' => 4])->get(); 
+      $dataOrderSucessToday = Order::with('orders')->where(['updated_at' => $range,'order_status' => 4])->get();
       // print_r($tien_ngay);
       // die();
       //Tổng số đơn hàng hôm nay
@@ -74,7 +74,7 @@ class AdminController extends Controller
       $revenueOrderToday = DB::table('orders')->where(['updated_at' => $range,'order_status' => 4])->sum('coupon_price');
       //Tổng doanh thu hôm qua
       $revenueOrderYesterday = DB::table('orders')->where(['updated_at' => $yesterday,'order_status' => 4])->sum('coupon_price');
-      //Tổng doanh thu 
+      //Tổng doanh thu
       $revenueOrder = DB::table('orders')->where(['order_status' => 4])->sum('coupon_price');
       //Số lượng sản phẩm
       $countProduct = Product::orderBy('created_at','asc')->count();
@@ -174,7 +174,7 @@ class AdminController extends Controller
       return view("admin.dashboard")->with($data_send);
   }
       public function view()
-    {   
+    {
         $admin_data = User::get();
         $data_send = ['admin_data' => $admin_data];
         return view('admin.user.list')->with($data_send);
@@ -194,8 +194,8 @@ class AdminController extends Controller
             $user = new User();
             if ($type=trim("Admin")) {
                $user->name = $req->name;
-               $user->email = $req->email; 
-               $user->type = $req->type; 
+               $user->email = $req->email;
+               $user->type = $req->type;
                $user->password = Hash::make($req->password);
                 $user->category_access = 1;
                 $user->product_access = 1;
@@ -203,9 +203,9 @@ class AdminController extends Controller
                 $user->store_access = 1;
                 $user->config_access = 1;
                 $user->customer_access = 1;
-                $user->user_access = 1; 
+                $user->user_access = 1;
                 $user->admin           = $req->has('admin')? '1':'0';
-                $user->save();               
+                $user->save();
                 $msg = [
                     'status' => '_success',
                     'msg'    => 'Bạn đã thêm 1 tài khoản mới'
@@ -236,8 +236,8 @@ class AdminController extends Controller
                         $req->user_access = 0;
                     }
                    $user->name = $req->name;
-                   $user->email = $req->email; 
-                   $user->type = $req->type; 
+                   $user->email = $req->email;
+                   $user->type = $req->type;
                    $user->admin  = $req->has('admin')? '1':'0';
                    $user->password = Hash::make($req->password);
                    $user->category_access = $req->category_access;
@@ -250,14 +250,14 @@ class AdminController extends Controller
                    $user->born = '';
                    $user->gender = '';
                    $user->avatar = '';
-                   $user->save();               
+                   $user->save();
                 $msg = [
                     'status' => '_success',
                     'msg'    => 'Bạn đã thêm 1 tài khoản mới'
                 ];
                 return response()->json($msg);
                  }
-             } 
+             }
         }
     }
     public function edit($id){
@@ -297,7 +297,7 @@ class AdminController extends Controller
          $user->config_access = $req->config_access;
          $user->customer_access = $req->customer_access;
          $user->user_access = $req->user_access;
-         $user->save(); 
+         $user->save();
           $msg = [
               'status' => '_success',
               'msg'    => 'Bạn đã sửa 1 tài khoản'
@@ -307,7 +307,7 @@ class AdminController extends Controller
       else {
         $user->name = $req->name;
         $user->admin  = $req->has('admin')? '1':'0';
-        $user->save(); 
+        $user->save();
         $msg = [
             'status' => '_success',
             'msg'    => 'Bạn đã sửa 1 tài khoản'
@@ -318,7 +318,7 @@ class AdminController extends Controller
     public function resetpass(Request $req){
       $user = User::where('id',$req->id)->first();
       $user->password = Hash::make($req->password);
-      $user->save(); 
+      $user->save();
         $msg = [
             'status' => '_success',
             'msg'    => 'Bạn đã reset 1 tài khoản'

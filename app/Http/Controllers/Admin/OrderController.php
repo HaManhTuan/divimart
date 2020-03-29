@@ -16,7 +16,7 @@ use App\Mail\MailNotify;
 
 class OrderController extends Controller {
 	public function vieworder() {
-		
+
 		// $orders = Order::with('orders')->get();
 		// return view('admin.order.list')->with(compact('orders'));
 	}
@@ -79,21 +79,25 @@ class OrderController extends Controller {
 		$AdminHis->save();
 		if ($orderStatus->save()) {
 			if ($orderStatus->order_status == 4) {
-				DB::table('customers')->where('id',$req->customer_id)->update(['coupon' => '']);
+                if(isset($req->customer_id) && $req->customer_id != "" )
+                {
+                    DB::table('customers')->where('id',$req->customer_id)->update(['coupon' => '']);
+                }
+
 				foreach ($orderStatus->orders as $value) {
 					$decrementStock = DB::table('product_attr')->where(['product_id' => $value->product_id,'size_id' =>$value->size])->update(['stock' => DB::raw('stock-'.$value->quantity)]);
 				}
 				foreach ($orderStatus->orders as $value) {
+                    //print_r($value->quantity);
 					$incrementBuy = DB::table('products')->where(['id' => $value->product_id])->increment('buy_count',$value->quantity);
 				}
-				if ($decrementStock) {
+				if ($incrementBuy) {
 					$msg = array(
 						'status' => '_success',
 						'msg'    => 'Bạn đã thay đổi trạng thái thành công.',
 					);
 					return json_encode($msg);
 				}
-
 			}
 			else {
 				$msg = array(
@@ -102,8 +106,9 @@ class OrderController extends Controller {
 					);
 					return json_encode($msg);
 				}
-		
-		} else {
+
+        }
+        else {
 			$msg = array(
 				'status' => '_error',
 				'msg'    => 'Có lỗi xảy ra. Vui lòng thử lại.',
@@ -210,7 +215,7 @@ class OrderController extends Controller {
                                     <th>Hành động</th>
                                 </tr>
                             </thead>';
-	
+
 		foreach ($filterDate as $item) {
 			$data_table .= '<tr>';
 			$data_table .= '<td>'.$item['id'].'</td>';
@@ -243,7 +248,7 @@ class OrderController extends Controller {
 								if($item['order_status'] == 5){
 									$data_table .=' <span class="badge badge-danger" style="margin-left: 10px">Đã hủy</span>';
 								}
-							}                  
+							}
 			$data_table .= '</td>';
 			$data_table .= '<td><a href="view-orderdetail/'.$item->id.'">Chi tiết</a></td>';
 			$data_table .= '</tr>';
@@ -254,7 +259,7 @@ class OrderController extends Controller {
 				'status' => '_success',
 				'msg'    => 'Thành công.',
 				'data_table'    => $data_table
-				
+
 			);
 			return json_encode($msg);
 		} else {
@@ -275,7 +280,7 @@ class OrderController extends Controller {
 		if ( Mail::to($email)->send(new MailNotify())) {
 		$msg = array(
 			'status' => '_success',
-			'msg'    => 'Bạn đã gửi mail.',	
+			'msg'    => 'Bạn đã gửi mail.',
 		);
 		return json_encode($msg);
 		}
@@ -287,19 +292,19 @@ class OrderController extends Controller {
 		return view("admin.order.invoice")->with($data_send);
 	}
 	public function sendcoupon(Request $req){
-		
-		$query = DB::table('customers')->where('id',$req->customer_id)->update(['coupon' => $req->coupon]);	
+
+		$query = DB::table('customers')->where('id',$req->customer_id)->update(['coupon' => $req->coupon]);
 		if ($query) {
 			$msg = array(
 				'status' => '_success',
-				'msg'    => 'Bạn đã gửi 1 mã giảm giá cho khách hàng này.',	
+				'msg'    => 'Bạn đã gửi 1 mã giảm giá cho khách hàng này.',
 			);
 			return json_encode($msg);
 		}
 		else {
 			$msg = array(
 				'status' => '_error',
-				'msg'    => 'Có lỗi.',	
+				'msg'    => 'Có lỗi.',
 			);
 			return json_encode($msg);
 		}

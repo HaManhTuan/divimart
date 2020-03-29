@@ -94,7 +94,7 @@ class BlogController extends Controller
 		$id          = $req->id;
 		$blog_detail     = Blog::where(['id' => $req->id])->first();
 		unlink('public/uploads/images/blogs/'.$blog_detail->img);
-	
+
 		if (Blog::destroy($id)) {
 
 			$msg = array(

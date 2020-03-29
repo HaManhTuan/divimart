@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller {
 	// Đệ quy tuyến tính menu đa cấp dạng danh sách
 	public function getDataList($parent_id = 0) {
-		$category_data = Category::orderBy('arrange', 'asc')->get();
+		$category_data = Category::orderBy('created_at', 'asc')->get();
 		$cate_child    = array();
 		$data_ol       = "";
 		$label         = "";
@@ -64,7 +64,7 @@ class CategoryController extends Controller {
 	}
 	// Đệ quy tuyến tính menu đa cấp dạng droplist
 	public function getDataSelect($parent_id = 0, $char = '', $current_id = '') {
-		$category_data = Category::orderBy('arrange', 'asc')->get();
+		$category_data = Category::orderBy('created_at', 'asc')->get();
 		$data_select   = "";
 		foreach ($category_data as $category_item) {
 			if ($category_item['parent_id'] == $parent_id) {
@@ -199,7 +199,7 @@ class CategoryController extends Controller {
 					    </div>
 			        ';
 		        }
-		
+
 		$msg = array(
 			'status_data'    => $category_data->status,
 			'status_cate'    => $category_data->status_cate,

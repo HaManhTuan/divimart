@@ -42,12 +42,10 @@ class ContactController extends Controller
                 <textarea rows="5" class="form-control" readonly>'.$contactDetail->content.'</textarea>
             </div>
             ';
-                $msg = array(
+    $msg = array(
       'category_name'  => $contactDetail->name,
       'body'           => $data
     );
-
     return json_encode($msg);
-               
   }
 }

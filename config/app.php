@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'divimart.local'),    
+    'url' => env('APP_URL', 'divimart.local'),
 
     // 'asset_url' => env('ASSET_URL', 'divimart.local'),
 
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------

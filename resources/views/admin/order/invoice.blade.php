@@ -33,7 +33,7 @@
 		    padding: 9px 18px;
 		    margin: 0 0 18px;
 		    font-size: 16.25px;
-		    border-left: 5px solid 
+		    border-left: 5px solid
 		    rgba(51,51,51,0.4);
 		}
 		p{
@@ -88,7 +88,7 @@
                                 @if (isset($orderDetail->note) && $orderDetail->note !='' )
                                 	 <p class="margin-none"><strong>Ghi chú:</strong> {{ $orderDetail->note }}<br></p>
                                 @endif
-                               
+
                             </address>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
 
 		                    <tr>
 		                        <td>{{ $stt++ }}</td>
-		                        <td>{{ $value->product_name }} - 
+		                        <td>{{ $value->product_name }} -
                                 @php
                                 	$size = DB::table('product_size')->where('id',$value->size)->value('size');
                                 @endphp

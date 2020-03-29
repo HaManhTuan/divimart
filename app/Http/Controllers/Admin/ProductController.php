@@ -13,25 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller {
-	public function getDataColor($current_id = '') {
-		$color_data  = ProductColor::get();
-		$data_select = "";
-		foreach ($color_data as $color_data) {
-			if ($current_id != "") {
-				if ($color_data['id'] == $current_id) {
-					$selected = "selected='selected'";
-				} else {
-					$selected = "";
-				}
-			} else {
-				$selected = "";
-			}
-			$data_select .= '<option value="'.$color_data['id'].'" '.$selected.'>';
-			$data_select .= $color_data['color'];
-			$data_select .= '</option>';
-		}
-		return $data_select;
-	}
 	public function viewpro() {
 		$products             = Product::with('category')->orderBy('created_at', 'asc')->get();
 		$product_status       = [];
@@ -83,7 +64,7 @@ class ProductController extends Controller {
 		$promotional_price            = (int) preg_replace("/[\,\.]+/", "", $req->promotional_price);
 		$request['sale']              = parent::sale($promotional_price, $price);
 		$request['price']             = $price;
-		$request['author_id']         = Auth::id();
+        $request['author_id']         = Auth::id();
 		$request['promotional_price'] = $promotional_price;
 		$request['color']             = $req->color;
 		$request['count']             = $req->count;
@@ -105,9 +86,9 @@ class ProductController extends Controller {
 
 
 		$query = Product::create($request);
-		$product_id = Product::orderBy('id','DESC')->value('id'); 
+		$product_id = Product::orderBy('id','DESC')->value('id');
 		foreach ($request['size'] as $key => $val) {
-		
+
 			$size             = new ProductAttr();
 			$size->size_id    = $val;
 			$size->stock      = $request['stock'][$key];
@@ -115,7 +96,6 @@ class ProductController extends Controller {
 			$size->product_id = $product_id;
 			$query            = $size->save();
 		}
-		
 		if (!$query) {
 			$msg = array(
 				'status' => "_error",
@@ -144,10 +124,10 @@ class ProductController extends Controller {
 		if ($avatar->image !="") {
 				if (file_exists('public/uploads/images/products/'.$avatar->image)) {
 			unlink('public/uploads/images/products/'.$avatar->image);
-		}	
+		}
 		}
 
-		
+
 		if (Product::destroy($id)) {
 
 			$msg = array(
@@ -236,7 +216,7 @@ class ProductController extends Controller {
 				if (isset($req->old_file) && $req->old_file != '') {
 					unlink("public/uploads/images/products/".$req->old_file);
 				}
-				
+
 			} else {
 				$request['image'] = $req->old_file;
 			}
@@ -281,33 +261,6 @@ class ProductController extends Controller {
 			return response()->json($msg);
 		}
 	}
-	/*GetTableColor*/
-	public function GetTableColor($id) {
-		$color_data = ProductColor::where('product_id', $id)->get();
-		$data_table = "";
-		$data_table .= '<table class="table table-bordered">
-		<tr>
-		<td>STT</td>
-		<td>Name</td>
-		<td>Color</td>
-		<td>Action</td>
-		</tr>';
-		$stt = 0;
-		foreach ($color_data as $color_data) {
-			$stt++;
-			$data_table .= '<tr>';
-			$data_table .= '<td>'.$stt.'</td>';
-			$data_table .= '<td>'.$color_data['color'].'</td>';
-			$data_table .= '<td><span style="display: block;width: 50px;height: 50px;background-color:'.$color_data['class'].'"></span></td>';
-			$data_table .= '<td>
-			<a href="" data-id="'.$color_data['id'].'" class="btn btn-success btn-size" data-toggle="modal" data-target="#addsize"><i class="fas fa-plus"></i></a>
-			<button data-id="'.$color_data['id'].'" class="btn btn-danger btn-del-color"><i class="fas fa-trash"></i></button>
-			</td>';
-			$data_table .= '</tr>';
-		}
-		$data_table .= '</table>';
-		return $data_table;
-	}
 	/*Get table size*/
 	public function GetTableSize($id) {
 		$product_data = Product::with('attributes')->where(['id' => $id])->first();
@@ -336,30 +289,6 @@ class ProductController extends Controller {
 		}
 		$data_table .= '</table>';
 		return $data_table;
-	}
-	//Open Modal Color
-	public function modalcolor(Request $req) {
-		$id             = $req->id;
-		$body           = $this->GetTableColor($req->id);
-		$modalcolor     = Product::find($id);
-		$modalcolorbody = ProductColor::where(['product_id' => $id])->first();
-		if (isset($modalcolor)) {
-			$msg = [
-				'status'     => '_success',
-				'body'       => $body,
-				'name'       => $modalcolor->name,
-				'product_id' => $modalcolor->id
-			];
-			return response()->json($msg);
-		}
-		if (isset($body)) {
-			$msg = [
-				'status' => '_success',
-				'body'   => $body,
-			];
-			return response()->json($msg);
-		}
-
 	}
 	public function modalsize(Request $req) {
 		$id         = $req->id;
@@ -478,30 +407,6 @@ class ProductController extends Controller {
 			];
 			return response()->json($msg);
 		}
-	}
-	public function attributecolor(Request $req) {
-		$data_color = ProductColor::get();
-		if ($req->isMethod('post')) {
-			$data = $req->all();
-			foreach ($data['color'] as $key => $val) {
-				if (!empty($val)) {
-					$attrCountColor = ProductColor::where(['color' => $val])->count();
-					if ($attrCountColor > 0) {
-						return redirect('admin/attribute/view-attribute')->with('flash_message_error', 'Màu này đã tồn tại');
-					}
-				}
-				$color        = new ProductColor();
-				$color->color = $val;
-				$color->class = $data['bgc'][$key];
-				$query        = $color->save();
-
-			}
-			if ($query) {
-				return view("admin.attribute.color");
-			}
-		}
-		$data_send = ['data_color' => $data_color];
-		return view("admin.attribute.color")->with($data_send);
 	}
 	public function attributesize(Request $req) {
 		$data_size = ProductSize::get();

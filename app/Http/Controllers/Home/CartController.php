@@ -19,12 +19,12 @@ use App\OrderDetail;
 use App\Coupon;
 class CartController extends Controller
 {
-   public function addtocart(Request $req) 
+   public function addtocart(Request $req)
    {
         $stock = ProductAttr::where(['size_id' => $req->sc, 'product_id' => $req->product_id])->sum('stock');
         if ($stock >= $req->quantity && $stock > 0) {
             Session::forget('CouponAmount');
-            Session::forget('CouponCode');    
+            Session::forget('CouponCode');
             $session_id = Session::get('session_id');
             if (empty($session_id)) {
               $session_id = Str::random(30);
@@ -86,7 +86,7 @@ class CartController extends Controller
             "cartblock"        => $cartblock,
             "count_cart"        => $count_cart,
             ];
-            return json_encode($msg);       
+            return json_encode($msg);
         }
         else
         {
@@ -105,7 +105,7 @@ class CartController extends Controller
             return response()->json($msg);
             }
         }
-        
+
        //print_r($req->all());
    }
    public function couponcart(Request $req){
@@ -183,7 +183,7 @@ class CartController extends Controller
         }
    }
    public function viewcart()
-   { 
+   {
     if (Auth::guard('customers')->check()) {
       $couponCus = Auth::guard('customers')->user()->coupon;
        $data_send= ['couponCus' => $couponCus];
@@ -192,8 +192,8 @@ class CartController extends Controller
     else {
        return view('home.cart');
     }
-     
-   } 
+
+   }
    public function updatecart(Request $req){
     // $cart_data = Cart::getContent();
 
@@ -235,7 +235,7 @@ class CartController extends Controller
     // print_r(Session::get('CouponAmount'));
     // die();
     // Session::forget('CouponAmount');
-    // Session::forget('CouponCode'); 
+    // Session::forget('CouponCode');
     $cart_data = Cart::getContent();
     $cart_subtotal = Cart::getSubTotal();
     if (Auth::guard('customers')->check()) {
@@ -296,12 +296,12 @@ class CartController extends Controller
     }
     //     print_r($order_id);
     // die();
-  }  
+  }
   public function thank(){
     Cart::clear();
     Session::forget('CouponAmount');
-    Session::forget('CouponCode'); 
+    Session::forget('CouponCode');
     Session::forget('session_id');
     return view('home.cart.thanks');
-  } 
+  }
 }

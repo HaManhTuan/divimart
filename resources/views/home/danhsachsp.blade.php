@@ -20,11 +20,11 @@
                     <div class="product-item wow fadeInUp" data-wow-delay="{{ $time = $time + 0.2 }}s">
                          <div class="cover">
                         <div class="pi-pic" style="padding: 2px;">
-                            <a href="{{ url('chi-tiet/'.$item->url) }}"> <img src="{{ asset('uploads/images/products/'.$item->image) }}" alt=""></a>
-                           
+                            <a href="{{ url('chi-tiet/'.$item->url) }}"> <img src="{{ asset('public/uploads/images/products/'.$item->image) }}" alt=""></a>
+
                             <div class="pi-links">
                                 <a href="{{ url('chi-tiet/'.$item->url) }}" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
-                                
+
                             </div>
                         </div>
                         <div class="pi-text">
@@ -34,7 +34,7 @@
                         @if ($item['promotional_price'] > 0 )
                             <h6 class="old-price">{{ number_format($item->price) }}</h6>
                             <h6>{{ number_format($item->promotional_price) }}</h6>
-                            
+
                         @endif
                         @if ($item['promotional_price'] ==  0 )
                         <h6>{{ number_format($item->price) }}</h6>
@@ -49,7 +49,7 @@
                     <div class=" w-100 pt-3 wow fadeInUpBig" data-wow-delay="0.35s" id="load_more_button">
 
                            {{ $productsAll->links('home.pagination.paginate') }}
-                    
+
                     </div>
             </div>
 {{--             <div class="text-center pt-5">

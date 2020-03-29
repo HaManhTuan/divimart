@@ -1,5 +1,3 @@
-
-
 @extends('layouts.admin.admin_layout')
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/admin/css/bootstrap-4.min.css')}}">
@@ -194,7 +192,7 @@
                                     <button type="button" class="btn btn-info waves-effect waves-light" id="btn-save-size"><small class="ti-pencil-alt mr-2"></small>Add Size</button>
                                     <div style="margin-top: 30px;">
                                       @foreach($size as $size)
-                                        <div class="checkbox form-inline">                                      
+                                        <div class="checkbox form-inline">
                                         <label class="container-checkbox" style="margin-left: 10px;">{{ $size->size }}
                                           <input type="checkbox" class="checkonemodel" name="size[]" id="size" value="{{ $size->id }}" data-id="{{ $size->id }}">
                                           <span class="checkmark"></span>
@@ -244,7 +242,7 @@
   });
   $('#count').on("change",function(){
     let count = $(this).val();
-    $('.checkbox .stock').val(count);    
+    $('.checkbox .stock').val(count);
   });
   $('.checkbox input:checkbox').on('click', function(){
     $(this).closest('.checkbox').find('.stock').toggle();

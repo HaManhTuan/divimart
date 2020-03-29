@@ -31,7 +31,7 @@
                           <td>{{ $item->subject }}</td>
                           <td>
                               <div>
-                                <button type="button" class="btn btn-danger btn-sm btn-del-pro btn-edit-category"   data-id="{{ $item->id }}" data-toggle="modal" data-target="#edit-category-modal" data-action="{{ url('admin/contact/open-modal') }}"><span class="glyphicon glyphicon-view" style="margin-right: 5px;"></span>View</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-del-pro btn-edit-category"   data-id="{{ $item->id }}" data-toggle="modal" data-target="#edit-category-modal" data-action="{{ url('admin/contact/open-modal') }}"><i class="fa fa-eye" style="margin-right: 5px;"></i>View</button>
                               </div>
                           </td>
                         </tr>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="modal-body"></div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Hủy bỏ</button>
+                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Hủy bỏ</button>
                         </div>
                     </form>
                 </div>
@@ -69,5 +69,42 @@
   $(document).ready( function () {
     $('#contact-table').DataTable();
   });
+    //mở popup danh mục
+   $(document).on("click", ".btn-edit-category", function() {
+        let id = $(this).attr('data-id');
+        let action = $(this).attr('data-action');
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: { id: id },
+            dataType: 'JSON',
+            headers: {
+                'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
+            },
+            success: function(data) {
+                $("#edit-category-modal .modal-body").html(data.body);
+                $('[data-ajax="edit"]').html(data.category_name);
+                $("#edit-category-modal #parent_id option[value='" + data.parent_id_data + "']").prop('selected', true);
+                if (data.status_data == 1) {
+                    $("#checkbox" + data.category_id + data.category_id).prop('checked', true);
+                } else {
+                    $("#checkbox" + data.category_id + data.category_id).prop('checked', false);
+                }
+                $("#edit-category-modal").modal('show');
+            },
+            error: function(err) {
+                console.log(err);
+                Swal({
+                    title: "Error " + err.status,
+                    text: err.responseText,
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                    type: 'error'
+                });
+            }
+        });
+        return false;
+    });
 </script>
 @endsection
