@@ -1,6 +1,7 @@
 @extends('layouts.admin.admin_layout')
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
 <section class="content-header">
   <h1>
     Quản lý sản phẩm
@@ -108,12 +109,12 @@ aria-labelledby="myModalLabel" aria-hidden="true">
       </div>
       <div class="modal-body">
 
-          <a href="#" class="btn-all btn btn-success" data-action="checkall" id="checkboxmodal"><i class="glyphicon glyphicon-plus" style="color:white;margin-right: 5px;"></i>Chọn hết</a> |
+{{--           <a href="#" class="btn-all btn btn-success" data-action="checkall" id="checkboxmodal"><i class="glyphicon glyphicon-plus" style="color:white;margin-right: 5px;"></i>Chọn hết</a> |
           <a href="#" class="btn-delall btn btn-danger" data-action="nonecheckall" id="checkboxnonemodal"><i class="glyphicon glyphicon-trash" style="color:white;margin-right: 5px;"></i>Xóa hết</a> |
-          <button type="submit" class="btn btn-info waves-effect waves-light" id="btn-save-size"><small class="ti-pencil-alt mr-2"></small>Add Size</button>
+          <button type="submit" class="btn btn-info waves-effect waves-light" id="btn-save-size"><small class="ti-pencil-alt mr-2"></small>Add Size</button> --}}
    
         <div class="row" style="margin-top: 5px;">
-          <div class="col-md-4">
+{{--           <div class="col-md-4">
             <div class="form-group">
                 <form action="{{ url('admin/product/add-size') }}" method="post" id="id-add-size" class="add-size" role="form" onsubmit="return false;" enctype='multipart/form-data'>
                     <div class="row">
@@ -121,9 +122,9 @@ aria-labelledby="myModalLabel" aria-hidden="true">
                            <input type="hidden" name="stock" value="" class="stock">
                       @foreach($size as $size)
                       <div class="col-md-6">
-{{--                           <div>
+                          <div>
                             <input type="checkbox" class="checkonemodel" id="checkboxmodal-{{ $size->id }}" name="size[]" id="size" value="{{ $size->id }}"> {{ $size->size }}
-                          </div> --}}
+                          </div>
                             <label class="container-checkbox" style="margin-left: 10px;">{{ $size->size }}
                               <input type="checkbox" class="checkonemodel" name="size[]" id="size" value="{{ $size->id }}">
                               <span class="checkmark"></span>
@@ -133,7 +134,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
                     </div>
                   </form>
             </div>
-          </div>
+          </div> --}}
            <form action="{{ url('admin/product/edit-stock') }}" method="post" id="frm-edit-stock" class="add-size" role="form" onsubmit="return false;" enctype='multipart/form-data'>
           <div class="col-md-8 table-size">
           </div>
@@ -268,9 +269,22 @@ select[name="table-product_length"]{
 </style>
 <script src="{{  asset('public/admin/bower_components/datatables.net/js/jquery.dataTables.min.js')}} "></script>
 <script src="{{  asset('public/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}} "></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js "></script>
+
 <script >
   $(document).ready( function () {
-  $('#table-product').DataTable();
+  $('#table-product').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+             'excel', 'pdf'
+            ]
+        } );
 } );
 </script>
 

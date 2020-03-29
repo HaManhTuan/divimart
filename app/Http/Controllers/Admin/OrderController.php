@@ -16,9 +16,9 @@ use App\Mail\MailNotify;
 
 class OrderController extends Controller {
 	public function vieworder() {
-
-		$orders = Order::with('orders')->get();
-		return view('admin.order.list')->with(compact('orders'));
+		
+		// $orders = Order::with('orders')->get();
+		// return view('admin.order.list')->with(compact('orders'));
 	}
 	public function vieworderdetail(Request $req, $id) {
 		$coupon = Coupon::get();
@@ -287,6 +287,7 @@ class OrderController extends Controller {
 		return view("admin.order.invoice")->with($data_send);
 	}
 	public function sendcoupon(Request $req){
+		
 		$query = DB::table('customers')->where('id',$req->customer_id)->update(['coupon' => $req->coupon]);	
 		if ($query) {
 			$msg = array(

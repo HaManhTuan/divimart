@@ -21,69 +21,91 @@ class CartController extends Controller
 {
    public function addtocart(Request $req) 
    {
-        Session::forget('CouponAmount');
-        Session::forget('CouponCode');    
-        $session_id = Session::get('session_id');
-        if (empty($session_id)) {
-          $session_id = Str::random(30);
-          Session::put('session_id', $session_id);
+        $stock = ProductAttr::where(['size_id' => $req->sc, 'product_id' => $req->product_id])->sum('stock');
+        if ($stock >= $req->quantity && $stock > 0) {
+            Session::forget('CouponAmount');
+            Session::forget('CouponCode');    
+            $session_id = Session::get('session_id');
+            if (empty($session_id)) {
+              $session_id = Str::random(30);
+              Session::put('session_id', $session_id);
+            }
+            $nameSize = ProductSize::where('id',$req->sc)->value('size');
+           Cart::add([
+            'id'   => $req->product_id."-".$req->sc,
+            'name' => $req->product_name,
+            'price' => $req->price,
+            'quantity' =>  $req->quantity,
+            'attributes' => ['size' => $req->sc ,'avatar' =>$req->avatar,'url' =>$req->url,'session_id' =>$session_id,'note' =>$req->note,'product_id' =>$req->product_id]
+            ]);
+            $cart_data = Cart::getContent();
+            $cart_subtotal = Cart::getSubTotal();
+            $count_cart = $cart_data->count();
+            $cartblock = '<a class="cart-link" href="'.url('cart/view-cart').'">
+                <span class="title">Giỏ hàng</span>
+                <span class="total">'.$cart_data->count().' sản phẩm - '.number_format($cart_subtotal).'</span>
+                <span class="notify notify-left">'.$cart_data->count().'</span>
+                </a>
+                <div class="cart-block">
+                  <div class="cart-block-content">
+                    <h5 class="cart-title">'.$cart_data->count().' sản phẩm</h5>
+                    <div class="cart-block-list">
+                      <ul>';
+                        foreach ($cart_data as $value) {
+                            $cartblock .= '<li class="product-info">
+                          <div class="p-left">
+                            <a href="#" class="remove_link"></a>
+                            <a href="#">
+                            <img class="img-responsive" src="'.asset('public/uploads/images/products/').'/'.''.$value->attributes->avatar.'" alt="p10">
+                            </a>
+                          </div>
+                          <div class="p-right">
+                            <p class="p-name">'.$value['name'].'</p>
+                            <p class="p-rice">'.number_format($value['price']).'</p>
+                            <p>Qty: '.$value['quantity'].'</p>
+                          </div>
+                        </li>';
+                        }
+                      $cartblock .= '</ul>
+                    </div>
+                    <div class="toal-cart">
+                      <span>Tổng cộng:</span>
+                      <span class="toal-price pull-right">'.number_format($cart_subtotal).'</span>
+                    </div>
+                    <div class="cart-buttons">
+                      <a href="" class="btn-check-out">Thanh toán</a>
+                    </div>
+                  </div>
+                </div>';
+            $success = 'Bạn đã thêm '.$req->product_name.' - size: '.$nameSize.'   vào giỏ hàng!';
+            $error = "";
+            $msg = [
+            "status" =>"_success",
+            "success"        => $success,
+            "error"        => $error,
+            "cartblock"        => $cartblock,
+            "count_cart"        => $count_cart,
+            ];
+            return json_encode($msg);       
         }
-        $nameSize = ProductSize::where('id',$req->sc)->value('size');
-       Cart::add([
-        'id'   => $req->product_id."-".$req->sc,
-        'name' => $req->product_name,
-        'price' => $req->price,
-        'quantity' =>  $req->quantity,
-        'attributes' => ['size' => $req->sc ,'avatar' =>$req->avatar,'url' =>$req->url,'session_id' =>$session_id,'note' =>$req->note,'product_id' =>$req->product_id]
-        ]);
-        $cart_data = Cart::getContent();
-        $cart_subtotal = Cart::getSubTotal();
-        $count_cart = $cart_data->count();
-        $cartblock = '<a class="cart-link" href="'.url('cart/view-cart').'">
-            <span class="title">Giỏ hàng</span>
-            <span class="total">'.$cart_data->count().' sản phẩm - '.number_format($cart_subtotal).'</span>
-            <span class="notify notify-left">'.$cart_data->count().'</span>
-            </a>
-            <div class="cart-block">
-              <div class="cart-block-content">
-                <h5 class="cart-title">'.$cart_data->count().' sản phẩm</h5>
-                <div class="cart-block-list">
-                  <ul>';
-                    foreach ($cart_data as $value) {
-                        $cartblock .= '<li class="product-info">
-                      <div class="p-left">
-                        <a href="#" class="remove_link"></a>
-                        <a href="#">
-                        <img class="img-responsive" src="'.asset('public/uploads/images/products/').'/'.''.$value->attributes->avatar.'" alt="p10">
-                        </a>
-                      </div>
-                      <div class="p-right">
-                        <p class="p-name">'.$value['name'].'</p>
-                        <p class="p-rice">'.number_format($value['price']).'</p>
-                        <p>Qty: '.$value['quantity'].'</p>
-                      </div>
-                    </li>';
-                    }
-                  $cartblock .= '</ul>
-                </div>
-                <div class="toal-cart">
-                  <span>Tổng cộng:</span>
-                  <span class="toal-price pull-right">'.number_format($cart_subtotal).'</span>
-                </div>
-                <div class="cart-buttons">
-                  <a href="" class="btn-check-out">Thanh toán</a>
-                </div>
-              </div>
-            </div>';
-        $success = 'Bạn đã thêm '.$req->product_name.' - size: '.$nameSize.'   vào giỏ hàng!';
-        $error = "";
-        $msg = [
-        "success"        => $success,
-        "error"        => $error,
-        "cartblock"        => $cartblock,
-        "count_cart"        => $count_cart,
-        ];
-        return json_encode($msg);       
+        else
+        {
+            if (($stock < $req->quantity && $stock > 0)) {
+            $msg = [
+                'status' => '_error',
+                'msg'    => 'Không đủ hàng. Vui lòng nhập lại số lượng'
+            ];
+            return response()->json($msg);
+            }
+            else {
+              $msg = [
+                'status' => '_error',
+                'msg'    => 'Size này hiện tại đang hết hàng. Vui lòng chọn size khác'
+            ];
+            return response()->json($msg);
+            }
+        }
+        
        //print_r($req->all());
    }
    public function couponcart(Request $req){
@@ -151,7 +173,7 @@ class CartController extends Controller
             return response()->json($msg);
             }
             else {
-                            $msg = [
+              $msg = [
                 'status' => '_error',
                 'msg'    => 'Size này hiện tại đang hết hàng. Vui lòng chọn size khác'
             ];

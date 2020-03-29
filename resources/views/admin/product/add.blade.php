@@ -20,7 +20,7 @@
 }
 
 /* Hide the browser's default checkbox */
-.container-checkbox input {
+.container-checkbox input.checkonemodel {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -32,7 +32,7 @@
 .checkmark {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -5px;
   height: 20px;
   width: 20px;
   background-color: #eee;
@@ -117,14 +117,7 @@
                            <input type="text" id="color" name="color" class="form-control" data-rule-required="true" data-msg-required="Vui lòng chọn màu." placeholder="Hãy nhập màu">
                         </div>
                      </div>
-                     <div class="form-group">
-                        <label for="hint-field" class="col-sm-2 control-label">
-                        Số lượng
-                        </label>
-                        <div class="col-sm-7">
-                           <input type="text" id="count" name="count" class="form-control" data-rule-required="true" data-msg-required="Vui lòng nhập số lượng." placeholder="Hãy nhập số lượng">
-                        </div>
-                     </div>
+
                      <div class="form-group">
                         <label for="hint-field" class="col-sm-2 control-label">
                         Giá
@@ -175,6 +168,14 @@
                         </div>
                      </div>
                       <div class="form-group">
+                        <label for="hint-field" class="col-sm-2 control-label">
+                        Số lượng
+                        </label>
+                        <div class="col-sm-4">
+                           <input type="number" id="count" name="count" class="form-control" placeholder="Hãy nhập số lượng" onkeyup="this.value = number_format(this.value,0,'','.');" onblur="this.value = number_format(this.value,0,'','.')">
+                        </div>
+                     </div>
+                      <div class="form-group">
                         <label class="col-sm-2 control-label" for="description">Nhập Size:</label>
                         <div class="col-sm-9">
                            <div class="box box-warning box-solid">
@@ -190,18 +191,18 @@
                               <div class="box-body" style="">
                                     <a class="btn-all btn btn-success" data-action="checkall" id="checkboxmodal"><i class="glyphicon glyphicon-plus" style="color:white;margin-right: 5px;"></i>Chọn hết</a> |
                                     <a class="btn-delall btn btn-danger" data-action="nonecheckall" id="checkboxnonemodal"><i class="glyphicon glyphicon-trash" style="color:white;margin-right: 5px;"></i>Xóa hết</a> |
-                                    <button type="submit" class="btn btn-info waves-effect waves-light" id="btn-save-size"><small class="ti-pencil-alt mr-2"></small>Add Size</button>
+                                    <button type="button" class="btn btn-info waves-effect waves-light" id="btn-save-size"><small class="ti-pencil-alt mr-2"></small>Add Size</button>
                                     <div style="margin-top: 30px;">
                                       @foreach($size as $size)
-                                      <label class="container-checkbox" style="margin-left: 10px;">{{ $size->size }}
-                                        <input type="checkbox" class="checkonemodel" name="size[]" id="size" value="{{ $size->id }}">
-                                        <span class="checkmark"></span>
-                                      </label>
-{{--                                         <input type="checkbox" class="checkonemodel" id="checkboxmodal-{{ $size->id }}" name="size[]" id="size" value="{{ $size->id }}"> {{ $size->size }} --}}
+                                        <div class="checkbox form-inline">                                      
+                                        <label class="container-checkbox" style="margin-left: 10px;">{{ $size->size }}
+                                          <input type="checkbox" class="checkonemodel" name="size[]" id="size" value="{{ $size->id }}" data-id="{{ $size->id }}">
+                                          <span class="checkmark"></span>
+                                        </label>
+                                         <input type="text" name="stock[]" value="" class="form-control stock" style="display: none;" placeholder="">
+                                        </div>
                                       @endforeach
                                     </div>
-
-                                
                               </div>
                             </div>
                         </div>
@@ -227,18 +228,28 @@
 <script src="{{ asset('public/admin/js/dropify.js') }}"></script>
 <script src="{{ asset('public/admin/js/pro.js') }}"></script>
 <script>
-    $(document).on('click', '.btn-all', function() {
+  $(document).on('click', '.btn-all', function() {
     let action = $(this).data('action');
     if (action == 'checkall') {
       $("input.checkonemodel").prop('checked', true);
+      $('.stock').toggle();
     }
   });
   $(document).on('click', '.btn-delall', function() {
     let action = $(this).data('action');
     if (action == 'nonecheckall') {
       $("input.checkonemodel").prop('checked', false);
+      $('.stock').toggle();
     }
   });
+  $('#count').on("change",function(){
+    let count = $(this).val();
+    $('.checkbox .stock').val(count);    
+  });
+  $('.checkbox input:checkbox').on('click', function(){
+    $(this).closest('.checkbox').find('.stock').toggle();
+  })
+
 
 </script>
 @endsection

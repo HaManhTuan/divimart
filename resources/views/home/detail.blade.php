@@ -109,7 +109,7 @@
                 </div> --}}
                 <div class="panel active">
                   <div class="panel-header" id="headingTwo">
-                    <button class="panel-link active" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">Chi tiết sản phẩm </button>
+                    <button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">Chi tiết sản phẩm </button>
                   </div>
                   <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     <div class="panel-body">
@@ -124,6 +124,16 @@
                   <div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="panel-body">
                       {!! $productUrl->infor !!}
+                    </div>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-header" id="headingThree">
+                    <button class="panel-link" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">Bình luận</button>
+                  </div>
+                  <div id="collapse4" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="panel-body">
+                      <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator{{ $productUrl->url }}" data-width="100%" data-numposts="5"></div>
                     </div>
                   </div>
                 </div>
@@ -198,7 +208,7 @@
                 'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
             },
             success: function(data){
-                console.log(data);
+                //console.log(data);
                 if (data.status == '_error') {
                     $('.fw-size-choose').notify(data.msg,'error');
                     $('#addCart').hide();
@@ -210,7 +220,7 @@
                 }
             },
             error:function(err) {
-                console.log(err);
+                //console.log(err);
             }
         });
         }
@@ -260,9 +270,17 @@
                 data: form,
                 success: function(data){
                   //console.log(data);
+                  if (data.status =="_success") {
                       $('html, body').animate({scrollTop: 0}, 'slow');
                       $(".shopping-card span").html(data['count_cart']);
                       $.notify(data.success,"success");
+                  }
+                  else
+                  {
+                     $('html, body').animate({scrollTop: 0}, 'slow');
+                      $.notify(data.msg,"error");
+                  }
+
                 },
                 error: function(err){
                   //console.log(err);

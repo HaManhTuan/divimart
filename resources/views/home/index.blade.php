@@ -53,7 +53,7 @@
                     $time = 1;
                 @endphp
                 @foreach($categoryother as $item)
-                <li class="wow fadeInLeft" data-wow-delay=".{{ $time++ }}s"><a href="{{ url('/'.$item->url) }}">{{ $item->name }}</a></li>
+                <li class="wow fadeInLeft" data-wow-delay=".{{ $time++ }}s"><a href="{{ url('danh-muc/'.$item->url) }}">{{ $item->name }}</a></li>
                 @endforeach
             </ul>
             <div class="row">

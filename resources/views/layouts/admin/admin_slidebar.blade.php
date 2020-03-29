@@ -47,11 +47,18 @@
         </li>
         @endif
         @if ( $userLogin->product_access == 1 )
-        <li class="{{ (request()->is('admin/product/view-product')) ? 'active' : '' }}">
-          <a href="{{ url('admin/product/view-product') }}">
-            <i class="fa fa-apple"></i>
-            <span>Sản phẩm </span>
+        <li class="{{ (request()->is('admin/product/view-product')) ? 'active' : '' }} treeview" >
+          <a href="#">
+              <i class="fa fa-inbox"></i>
+              <span>Sản phẩm</span>
+                <span class="pull-right-container">
+              <span class="label label-primary pull-right">2</span>
+            </span>
           </a>
+           <ul class="treeview-menu">
+              <li><a href="{{ url('admin/product/view-product') }}"><i class="fa fa-circle-o"></i>Danh sách sản phẩm</a></li>
+              <li><a href="{{ url('admin/thong-ke/thong-ke-sp') }}"><i class="fa fa-circle-o"></i> Thống kê</a></li>
+            </ul>
         </li>
         @endif
         @if ( $userLogin->order_access == 1 )

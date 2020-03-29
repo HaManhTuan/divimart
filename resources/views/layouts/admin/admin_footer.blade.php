@@ -1,13 +1,12 @@
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.18
+      <b>DIVIMART</b>
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
-    reserved.
+    <strong>DVIMART hệ thống siêu thị mẹ và bé hàng</strong>.
   </footer>
     <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark" style="display: none;">
-
+      {{-- <a href="">Thống kê sản phẩm</a> --}}
   </aside>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed

@@ -343,7 +343,7 @@ class AdminController extends Controller
       return json_encode($msg);
     }
   }
-      public function logout(){
+    public function logout(){
       Auth::logout();
       return redirect('admin/login');
     }

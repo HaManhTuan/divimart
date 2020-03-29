@@ -1,8 +1,8 @@
 @extends('layouts.admin.admin_layout')
 @section('content')
 
-    <style>
-        .avatar-wrapper {
+<style>
+.avatar-wrapper {
      position: relative;
      height: 100px;
      width: 100px;

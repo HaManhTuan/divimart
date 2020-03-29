@@ -193,8 +193,6 @@ $(document).ready( function () {
             let action = $(this).data('action');
             let id_array = new Array();
             let chkCheckLength = $(".checkbox-list input[type='checkbox']").filter(':checked').length;
-            
-
             $(".checkbox-list input[type='checkbox']").filter(':checked').each(function() {
                 let id = $(this).data('id');
                 id_array.push(id);

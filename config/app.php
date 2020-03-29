@@ -52,9 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),    
+    'url' => env('APP_URL', 'divimart.local'),    
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/divimart'),
+    // 'asset_url' => env('ASSET_URL', 'divimart.local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,6 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+         Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 
@@ -226,6 +227,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
          // 'Cart' => Darryldecode\Cart\Facades\CartFacade::class
 
     ],

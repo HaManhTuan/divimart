@@ -107,12 +107,15 @@ class ProductController extends Controller {
 		$query = Product::create($request);
 		$product_id = Product::orderBy('id','DESC')->value('id'); 
 		foreach ($request['size'] as $key => $val) {
+		
 			$size             = new ProductAttr();
 			$size->size_id    = $val;
-			$size->stock      = $request['count'] ;
+			$size->stock      = $request['stock'][$key];
+			// $size->stock      = $request['count'];
 			$size->product_id = $product_id;
 			$query            = $size->save();
 		}
+		
 		if (!$query) {
 			$msg = array(
 				'status' => "_error",
@@ -138,7 +141,13 @@ class ProductController extends Controller {
 		}
 		$DelAttr = ProductAttr::where(['product_id' => $id])->delete();
 		$avatar  = Product::where(['id'             => $id])->first();
-		unlink('public/uploads/images/products/'.$avatar->image);
+		if ($avatar->image !="") {
+				if (file_exists('public/uploads/images/products/'.$avatar->image)) {
+			unlink('public/uploads/images/products/'.$avatar->image);
+		}	
+		}
+
+		
 		if (Product::destroy($id)) {
 
 			$msg = array(

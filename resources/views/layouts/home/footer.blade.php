@@ -53,9 +53,9 @@
           <a href="" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
           <a href="" class="tumblr"><i class="fa fa-tumblr-square"></i><span>tumblr</span></a>
         </div>
-
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
       </div>
     </div>
   </section>
+  <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v6.0&appId=244735576425485&autoLogAppEvents=1"></script>

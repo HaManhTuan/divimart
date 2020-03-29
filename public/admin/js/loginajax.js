@@ -5,7 +5,7 @@
                     let action = $("#frm-login").attr('action');
                     let method = $("#frm-login").attr('method');
                     let formData = $("#frm-login").serialize();
-                      $.ajax({
+                    $.ajax({
                         url: action,
                         type: method,
                         data: formData,
@@ -29,8 +29,6 @@
 
                         }
                     });
-
-
                 }
             });
     });

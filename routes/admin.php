@@ -56,14 +56,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
 	    });
 	    //Order
 		Route::group(['prefix' => 'order', 'middleware' => 'Admin'], function () {
-			Route::match(['get','post'],'view-order', 'OrderController@vieworder');
+			Route::resource('view-order', 'OrderDataController');
+			//Route::match(['get','post'],'view-order', 'OrderDataController@index');
 			Route::match(['get', 'post'], 'view-orderdetail/{id}', 'OrderController@vieworderdetail');
 			Route::post('change-status', 'OrderController@changestatus');
 			Route::post('change-customer', 'OrderController@changecustomer');
 			Route::post('change-order', 'OrderController@changeorder');
 			Route::post('log', 'OrderController@log');
-			Route::post('filterdate', 'OrderController@filterdate');
-			Route::get('filter', 'OrderController@tkorder');
+			// Route::post('filterdate', 'OrderController@filterdate');
+			//Route::get('filter', 'OrderController@tkorder');
+
 			Route::post('sendmail', 'OrderController@sendmail');
 			Route::get('invoice/{id}','OrderController@invoice');
 			Route::post('send-coupon','OrderController@sendcoupon');
@@ -103,6 +105,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
 		Route::group(['prefix' => 'contact', 'middleware' => 'Admin'], function () {
 			Route::get('view-contact','ContactController@view');
 			Route::post('open-modal','ContactController@openmodal');
+		});
+		//Thong ke
+		Route::group(['prefix' => 'thong-ke', 'middleware' => 'Admin'], function () {
+			Route::get('thong-ke-sp','FilterController@sanpham');
+			Route::post('filter','FilterController@filter');
 		});
 });
 

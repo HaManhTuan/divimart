@@ -55,7 +55,7 @@
                         Số lượng
                         </label>
                         <div class="col-sm-7">
-                           <input type="text" id="count" name="count" class="form-control" data-rule-required="true" data-msg-required="Vui lòng nhập số lượng." placeholder="Hãy nhập số lượng" value="{{ $product_detail->count }}">
+                           <input type="text" id="count" name="count" class="form-control" placeholder="Hãy nhập số lượng" value="{{ $product_detail->count }}">
                         </div>
                      </div>
                      <div class="form-group">
@@ -123,7 +123,7 @@
          </section>
       </div>
    </div>
-   <div class="row">
+{{--    <div class="row">
       <div class="col-md-12">
          <div class="box">
             <div class="box-header">
@@ -137,7 +137,7 @@
              </div>
           </div>
       </div>
-   </div>
+   </div> --}}
 </div>
 <script src="{{ asset('public/admin/js/function.js') }}"></script>
 <script src="{{ asset('public/admin/js/bootstrap-switch.js') }}"></script>
