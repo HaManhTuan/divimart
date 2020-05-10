@@ -1,7 +1,8 @@
 @extends('layouts.admin.admin_layout')
 @section('content')
 <link rel="stylesheet" href="{{ asset('public/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('public/admin/bower_components/datatables.net-bs/css/buttons.dataTables.min.css') }}">
+
 <section class="content-header">
   <h1>
     Quản lý sản phẩm
@@ -12,6 +13,22 @@
   </ol>
 </section>
     <section class="content">
+      <div class="row">
+        <div class="col-xs-12 col-lg-12">
+           @if ($proExp->count() > 0)
+          <div class="alert alert-danger alert-dismissible bounceInDown animated">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> Thông báo sản phẩm sắp hết hàng!</h4>
+            @foreach($proExp as $value)
+                <span class="key">{{ $value->product->name }} - Size:{{ $value->size->size }} - Còn lại: <span>{{ $value->stock }} </span> sản phẩm </span><br>
+            @endforeach
+            <div class="redirect-pro">
+                <a href="{{ url('admin/product/view-product') }}"><i class="fa fa-undo"></i> Chuyển đến trang quản lý sản phẩm</a>
+            </div>
+          </div>
+           @endif
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -29,9 +46,9 @@
                         <tr>
                             <th>Sản phẩm</th>
                             <th>Giá</th>
-                            <th class="no-sort hidden-xs">Ảnh</th>
+                            <th class="no-sort hidden-xs" style="width: 200px;">Ảnh</th>
                             <th>Trạng thái</th>
-                            <th class="hidden-xs">Hành động</th>
+                            <th class="hidden-xs" style="width: 150px;">Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -228,13 +245,15 @@ select[name="table-product_length"]{
 </style>
 <script src="{{  asset('public/admin/bower_components/datatables.net/js/jquery.dataTables.min.js')}} "></script>
 <script src="{{  asset('public/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}} "></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js "></script>
+<script src="{{  asset('public/admin/bower_components/datatables.net/js/jquery.dataTables.min.js')}} "></script>
+<script src="{{  asset('public/admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}} "></script>
+<script src="{{ asset('public/admin/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('public/admin/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('public/admin/js/jszip.min.js') }}"></script>
+<script src="{{ asset('public/admin/js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('public/admin/js/vfs_fonts.js') }}"></script>
+<script src="{{ asset('public/admin/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('public/admin/js/buttons.print.min.js') }}"></script>
 
 <script >
   $(document).ready( function () {

@@ -24,10 +24,10 @@
       <div class="col-md-12 wow fadeInLeft" data-wow-delay=".25s">
         <h3 align="center">ĐƠN HÀNG CỦA BẠN ĐANG ĐƯỢC XỬ LÝ</h3>
       </div>
-      <div class="col-md-12 wow rollIn" data-wow-delay=".28s" style="margin:0 auto;">
+      <div class="col-md-12 wow fadeInLeft" data-wow-delay=".28s" style="margin:0 auto;">
         <div class="loader-thanks"></div>
       </div>
-      <div class="col-md-12 wow rollIn" data-wow-delay=".28s" style="margin-bottom: 150px;">
+      <div class="col-md-12 wow fadeInLeft" data-wow-delay=".28s" style="margin-bottom: 150px;">
         <h4 align="center">Cảm ơn bạn đã mua hàng tại siêu thị của chúng tôi.</h4>
       </div>
     </div>

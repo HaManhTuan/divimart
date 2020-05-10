@@ -145,11 +145,11 @@ padding-bottom: 3px;
 
 @endif
 <script src="{{ asset('public/admin/js/jquery.MultiFile.js') }}"></script>
-    <script>
-    	  $(function(){
+<script>
+    $(function(){
 		    $('.with-preview').MultiFile();
 		  });
-		    $(document).on('click', '.btn-del', function() {
+$(document).on('click', '.btn-del', function() {
     let id = $(this).attr('data-id');
     Swal({
       title: 'Xác nhận xóa?',

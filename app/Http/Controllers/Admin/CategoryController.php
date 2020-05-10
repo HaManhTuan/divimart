@@ -149,10 +149,6 @@ class CategoryController extends Controller {
 		$id            = $req->id;
 		$data_select   = $this->getDataSelect(0, '', $id);
 		$category_data = Category::where('id', $id)->first();
-		/*echo "<pre>";
-		print_r ($category_data);
-		echo "</pre>";
-		die;*/
 		$data = '
                <div class="form-group">
                <input type="hidden" name="edit_id" value="'.$category_data->id.'">

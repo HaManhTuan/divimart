@@ -130,9 +130,6 @@ class CartController extends Controller
         return response()->json($msg);
       }
       $session_id = Session::get('session_id');
-      // if (Auth::guard('customers')->check()) {
-      //   $user_email = Auth::guard('customers')->user()->email;
-      // }
       $total_amount = 0;
       $cart_data = Cart::getContent();
       foreach ($cart_data as $item) {

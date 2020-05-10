@@ -44,7 +44,11 @@
                       Size: {{ $size }}
                       @endforeach
                     </td>
-                    <td>COD</td>
+                    <td>COD - @if ($order->order_status == 4)
+                        <span class="badge badge-success">Đã giao hàng</span>
+                    @else
+                        <span class="badge badge-danger">Đang chờ</span>
+                    @endif</td>
                     <td>{{ number_format($order->total_price) }}</td>
                     <td>{{ $order->created_at }}</td>
                     <td><button type="button" class="btn btn-warning btn-orderdetail" data-id="{{ $order->id }}" data-toggle="modal" data-target="#OrderDetail"><i class="ti-view-list"  ></i> Chi tiết</button></td>

@@ -16,7 +16,7 @@ class HomeController extends Controller
 {
     public function index(){
         $categoryother = Category::where('parent_id','!=',0)->paginate(5);
-        $dataProduct = Product::orderBy('created_at','ASC')->paginate(8);
+        $dataProduct = Product::orderBy('buy_count','DESC')->inRandomOrder()->paginate(8);
         $idin      = [];
         $producBestSaler = Product::where('status',1)->orderBy('promotional_price','desc')->paginate(4);
         $producSaler = Product::where('status',1)->orderBy('promotional_price','desc')->get();
@@ -42,8 +42,8 @@ class HomeController extends Controller
         if (isset($url) && $url != '') {
             $categoryUrl = Category::where('url',$url)->first();
             $categorynoneUrl = Category::where('parent_id','!=',0)->where('id','!=',$categoryUrl->id)->get();
-            $idin      = [];
             $data      = $req->all();
+            $idin      = [];
             $cate_data = Category::where('url', $url)->first();
             $idin[]    = $cate_data->id;
             $cate_in   = Category::where('parent_id', $cate_data->id)->get();
@@ -125,4 +125,35 @@ class HomeController extends Controller
                 return view('home.danhsachsp',compact('productsAll','search_product'));
             }
          }
+    public function filterprice(Request $req){
+            $url = $req->url;
+            $categoryUrl = Category::where('url',$url)->first();
+            $categorynoneUrl = Category::where('parent_id','!=',0)->where('id','!=',$categoryUrl->id)->get();
+            $data      = $req->all();
+            $idin      = [];
+            $cate_data = Category::where('url', $url)->first();
+            $idin[]    = $cate_data->id;
+            $cate_in   = Category::where('parent_id', $cate_data->id)->get();
+            foreach ($cate_in as $item) {
+                if (in_array($item->id, $idin) == false) {
+                    $idin[] = $item->id;
+                }
+            }
+            $minPrice = $req->min_price;
+            $maxPrice = $req->max_price;
+            $cateID = $req->category_id;
+
+            $proCate = Product::whereBetween('price',[$minPrice, $maxPrice])->paginate(9);
+            $data_send = [
+                'minPrice' =>$minPrice,
+                'maxPrice' =>$maxPrice,
+                'categoryUrl' =>$categoryUrl,
+                'categorynoneUrl' =>$categorynoneUrl,
+                'proCate' =>$proCate,
+            ];
+            return view('home.category-price')->with($data_send);
+        
+       
+        
+    }
 }

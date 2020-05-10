@@ -21,21 +21,21 @@
 								</select>
 				            </div>
 				            <div class="col-sm-3">
-								<select name="time" id="time" class="form-control" style="display: none;">
-									<option selected="" disabled="">--Chọn tháng--</option>
-									<option value="1">Tháng 1</option>
-									<option value="2">Tháng 2</option>
-									<option value="3">Tháng 3</option>
-									<option value="4">Tháng 4</option>
-									<option value="5">Tháng 5</option>
-									<option value="6">Tháng 6</option>
-									<option value="7">Tháng 7</option>
-									<option value="8">Tháng 8</option>
-									<option value="9">Tháng 9</option>
-									<option value="10">Tháng 10</option>
-									<option value="11">Tháng 11</option>
-									<option value="12">Tháng 12</option>
-								</select>
+											<select name="time" id="time" class="form-control" style="display: none;">
+												<option selected="" disabled="">--Chọn tháng--</option>
+												<option value="1">Tháng 1</option>
+												<option value="2">Tháng 2</option>
+												<option value="3">Tháng 3</option>
+												<option value="4">Tháng 4</option>
+												<option value="5">Tháng 5</option>
+												<option value="6">Tháng 6</option>
+												<option value="7">Tháng 7</option>
+												<option value="8">Tháng 8</option>
+												<option value="9">Tháng 9</option>
+												<option value="10">Tháng 10</option>
+												<option value="11">Tháng 11</option>
+												<option value="12">Tháng 12</option>
+											</select>
 				            </div>
 				         </div>	
 		                </form>
@@ -55,6 +55,7 @@
 <script src="{{ asset('public/admin/js/Chart.js') }}"></script>
 <script>
 	jQuery(document).ready(function($) {
+		
 		$("#cate").on('change', function(event) {
 			event.preventDefault();
 			$("#time").show();
@@ -65,10 +66,8 @@
 				url: "{{ url('admin/thong-ke/filter') }}",
 				type: "POST",
 				data: {time: time},
-				headers: {
-	              'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')
-	            },
-	            dataType:'JSON',
+				headers: {'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr('content')},
+	      dataType:'JSON',
 				success: function(data){
 				if (data.status =="_success") {
 					$("#bar").show();
@@ -78,7 +77,7 @@
 						var myChart = new Chart(ctx, {
 						    type: 'bar',
 						    data: {
-						        labels: ['1','2', '3','4','5' ],
+						        labels: data.stt,
 						        datasets: [{
 
 						            data: data.count,
@@ -120,7 +119,10 @@
 						    }
 						});
 				}
-					console.log(data.count);
+				// else{
+				// 	$('#list-pro').append('<p>'+ data.msg +'</p>')
+				// }
+			
 					
 				},
 				error: function(err){
@@ -128,6 +130,7 @@
 				}
 			});
 		});
+
 	});
 </script>
 @endsection

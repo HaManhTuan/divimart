@@ -2,6 +2,8 @@
 
 @extends('layouts.admin.admin_layout')
 @section('content')
+
+
 <link rel="stylesheet" href="{{ asset('public/admin/css/bootstrap-4.css')}}">
 <link rel="stylesheet" href="{{ asset('public/admin/css/toastr.min.css')}}">
 <div class="content">
@@ -145,15 +147,13 @@
                            <input type="hidden" name="customer_id" id="customer_id" value="{{ $customerDetail->id }}">
                            @endif
                            <select name="order_status" id="order_status" class="form-control" style="width: 180px;margin-left: 50px;display: inline-block;">
-                              @if ($orderDetail->order_status == 4)
-                              <option value="4" selected="">Đã chuyển</option>
-                              @else
+                             
                               <option value="1">Mới</option>
                               <option value="2">Đang chờ xử lý</option>
                               <option value="3">Đang chuyển</option>
-                              <option value="4" selected="">Đã chuyển</option>
+                              <option value="4">Đã chuyển</option>
                               <option value="5">Đã hủy</option>
-                              @endif
+                              
                            </select>
                            <div class="box-tools pull-right">
                               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -656,7 +656,6 @@
            }
        });
    });
-
 </script>
 @endsection
 

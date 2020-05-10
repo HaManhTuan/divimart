@@ -1,6 +1,7 @@
 <?php
 //Home 
 Route::get('/','HomeController@index');
+Route::get('/filter-price','HomeController@filterprice');
 Route::get('contact','HomeController@contact');
 Route::post('contact-post','HomeController@contactpost');
 Route::get('blog','BlogController@blog');
@@ -17,7 +18,7 @@ Route::get('danh-muc/{url}','HomeController@category');
 //Detail
 Route::match(['get','post'],'chi-tiet/{url}','HomeController@detail');
 //Register
-Route::post('/register', 'CustomerController@registation');
+Route::post('/register','CustomerController@registation');
 //login
 Route::post('/login', 'CustomerController@login');
 //Cart

@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    	protected function sale($promotional_price, $price) {
+    protected function sale($promotional_price, $price) {
 		settype($promotional_price, 'int');
 		settype($price, 'int');
 		if ($price == 0 || $promotional_price > $price) {return 0;

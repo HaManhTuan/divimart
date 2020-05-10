@@ -28,6 +28,35 @@
                             @endforeach
                         </ul>
                     </div>
+                    <div class="filter-widget mb-0">
+                      <form action="{{ url('/filter-price') }}" method="get">
+                        @csrf
+                      <h2 class="fw-title">lọc</h2>
+                      <div class="price-range-wrap">
+                        <h4>Price</h4>
+                        <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="30000" data-max="400000">
+                          <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%;"></div>
+                          <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%;">
+                          </span>
+                          <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%;">
+                          </span>
+                        </div>
+                        <div class="range-slider">
+                          <div class="price-input">
+                            <input type="text" id="minamount" >
+                            <input type="text" id="maxamount" >
+
+                           
+                          </div>
+                        </div>
+                      </div>
+                       <input type="hidden" id="minprice" name="min_price" value="30000">
+                       <input type="hidden" id="maxprice" name="max_price" value="390000">
+                       <input type="hidden" id="category_id" name="category_id" value="{{ $categoryUrl->id }}">
+                       <input type="hidden" id="category_url" name="url" value="{{ $categoryUrl->url }}">
+                      <button type="submit" class="btn btn-danger">Lọc</button>
+                      </form>
+                    </div>
                 </div>
                 <div class="col-lg-9  order-1 order-lg-2 mb-5 mb-lg-0">
                     <div class="row" id="load-data">

@@ -39,6 +39,7 @@ class CustomerController extends Controller {
 		}
 	}
 	public function registation(Request $req) {
+		//print_r($req->all());
 		$checkEmail = Customers::where('email', $req->email)->count();
 		if ($checkEmail > 0) {
 			$msg = [
@@ -53,6 +54,7 @@ class CustomerController extends Controller {
 			$customer->email    = $req->email;
 			$customer->address  = $req->address;
 			$customer->phone    = $req->phone;
+			$customer->coupon    = "";
 			$customer->password = Hash::make($req->password);
 			if ($customer->save()) {
 				$msg = [

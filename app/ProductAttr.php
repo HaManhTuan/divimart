@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductAttr extends Model {
 	protected $table   = 'product_attr';
-	public $timestamps = false;
+	public $timestamps = true;
 	public function size() {
 		return $this->belongsTo('App\ProductSize', 'size_id', 'id');
 	}

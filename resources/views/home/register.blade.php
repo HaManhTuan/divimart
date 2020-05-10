@@ -15,7 +15,7 @@
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
 					<div class="frm-login">
-						<form action="{{ url('/register') }}" method="POST" id="frm-register">
+						<form action="{{ url('/register') }}" method="POST" id="frm-register" onsubmit="return false;">
 							@csrf
 							<div class="form-group wow fadeInLeft" data-wow-delay=".25s">
 								<label for="exampleInputEmail1">Tên</label>
@@ -63,7 +63,7 @@
 						},
 						dataType: 'JSON',
 						success: function(data) {
-							//console.log(data);
+							console.log(data);
 							if (data.status == '_success') {
 								$.notify(data.msg,'success');
 								$("#frm-register")[0].reset();
@@ -75,7 +75,7 @@
 							}
 						},
 						error: function(err) {
-							//console.log(err);
+							console.log(err);
 						}
 					});
 				}

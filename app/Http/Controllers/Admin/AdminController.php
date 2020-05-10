@@ -41,7 +41,7 @@ class AdminController extends Controller
   public function dashboard()
   {
       //Sản phẩm sắp hết hàng
-      $proExp = ProductAttr::with('product')->with('size')->where('stock','<=',3)->orderBy('stock','ASC')->get();
+      $proExp = ProductAttr::with('product')->with('size')->where('stock','<=',2)->orderBy('stock','ASC')->get();
       // echo '<pre>';
       // print_r($proExp);
       // echo '</pre>';
@@ -51,9 +51,11 @@ class AdminController extends Controller
       $promostBuy = Product::orderBy('buy_count','DESC')->paginate(5);
       $yesterday=Carbon::yesterday()->toDateString();
       $range=  Carbon::now()->toDateString();
+      // print_r($range);
+      // die();
       $ngay = DB::table('orders')->where('updated_at',$range)->get();
       //Đơn hàng mới hôm nay
-      $countOrderNewToday = DB::table('orders')->where(['updated_at' => $range,'order_status' => 1])->count();
+      $countOrderNewToday = DB::table('orders')->whereDate('updated_at',$range)->where('order_status',1)->count();
       //Tổng số đơn hàng mới hôm nay
       $dataOrderNewToday = Order::with('orders')->where(['updated_at' => $range,'order_status' => 1])->get();
       //Đơn hàng đang chuyển hôm nay
@@ -71,9 +73,9 @@ class AdminController extends Controller
       //Tổng số đơn hàng hôm nay
       $numberOrderToday = DB::table('orders')->where(['updated_at' => $range])->count();
       //Tổng doanh thu hôm nay
-      $revenueOrderToday = DB::table('orders')->where(['updated_at' => $range,'order_status' => 4])->sum('coupon_price');
+      $revenueOrderToday = DB::table('orders')->whereDate('updated_at',$range)->where('order_status', 4)->sum('coupon_price');
       //Tổng doanh thu hôm qua
-      $revenueOrderYesterday = DB::table('orders')->where(['updated_at' => $yesterday,'order_status' => 4])->sum('coupon_price');
+      $revenueOrderYesterday = DB::table('orders')->whereDate('updated_at',$yesterday)->where(['order_status' => 4])->sum('coupon_price');
       //Tổng doanh thu
       $revenueOrder = DB::table('orders')->where(['order_status' => 4])->sum('coupon_price');
       //Số lượng sản phẩm

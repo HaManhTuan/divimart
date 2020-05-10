@@ -197,7 +197,9 @@
                                           <input type="checkbox" class="checkonemodel" name="size[]" id="size" value="{{ $size->id }}" data-id="{{ $size->id }}">
                                           <span class="checkmark"></span>
                                         </label>
-                                         <input type="text" name="stock[]" value="" class="form-control stock" style="display: none;" placeholder="">
+                                        
+                                        <input type="text" name="stock[]" value="" class="form-control stock" style="display: none;margin-left: 50px;" placeholder="">
+                                       
                                         </div>
                                       @endforeach
                                     </div>

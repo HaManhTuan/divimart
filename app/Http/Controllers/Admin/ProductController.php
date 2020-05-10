@@ -14,7 +14,8 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller {
 	public function viewpro() {
-		$products             = Product::with('category')->orderBy('created_at', 'asc')->get();
+		$proExp = ProductAttr::with('product')->with('size')->where('stock','<=',2)->orderBy('stock','ASC')->get();
+		$products             = Product::with('category')->orderBy('id', 'desc')->get();
 		$product_status       = [];
 		$product_class_status = [];
 		foreach ($products as $key => $product) {
@@ -33,6 +34,7 @@ class ProductController extends Controller {
 			//'category_name'         => $category,
 			'product_status'       => $product_status,
 			'product_class_status' => $product_class_status,
+			'proExp' => $proExp,
 			'size'                 => $size
 		];
 		// echo '<pre>';

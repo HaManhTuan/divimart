@@ -5,6 +5,9 @@
     table tr:hover{
         cursor: pointer;
     }
+    #inventory:hover{
+        cursor: pointer;
+    }
 </style>
 <?php
 $current_month = date('M');
@@ -447,7 +450,7 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
        <div class="col-lg-4">
           <div class="box box-success box-solid">
               <div class="box-header with-border">
-                <h3 class="box-title">Sản phẩm bán chạy nhất</h3>
+                <h3 class="box-title" id="inventory" onclick="window.location.href='{{ url('admin/thong-ke/filter-inventory') }}'">Sản phẩm bán chạy nhất</h3>
 
                 <div class="box-tools pull-right">
                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -471,41 +474,6 @@ $yesterday_day_6 = date('d/M',strtotime("-6 day"));
                           <td>{{ $value->id }}</td>
                           <td>{{ $value->name }}</td>
                           <td><button type="button" class="btn btn-info btn-xs">{{ $value->buy_count }}</button></td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                  </table>
-              </div>
-              <!-- /.panel-body -->
-          </div>
-      </div>
-      <div class="col-lg-4">
-          <div class="box box-success box-solid">
-              <div class="box-header with-border">
-                <h3 class="box-title">Sản phẩm xem nhiều nhất</h3>
-
-                <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                  </button>
-                </div>
-                <!-- /.box-tools -->
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body" style="">
-                  <table class="table table-bordered table-hover">
-                      <thead>
-                          <tr>
-                              <th>ID</th>
-                              <th>Tên </th>
-                              <th>Đã bán</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($promostView as $item)
-                        <tr>
-                          <td>{{ $value->id }}</td>
-                          <td>{{ $value->name }}</td>
-                          <td><button type="button" class="btn btn-info btn-xs">{{ $value->count_view }}</button></td>
                         </tr>
                         @endforeach
                       </tbody>

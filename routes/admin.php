@@ -110,6 +110,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'Admin'], function () {
 		Route::group(['prefix' => 'thong-ke', 'middleware' => 'Admin'], function () {
 			Route::get('thong-ke-sp','FilterController@sanpham');
 			Route::post('filter','FilterController@filter');
+			Route::get('filter-time/{time}','FilterController@filtertime');
+			Route::get('filter-inventory','FilterController@filterinventory');
 		});
 });
 

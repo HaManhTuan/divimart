@@ -38,7 +38,7 @@
 		                                    <img class="img-rounded" src="{{ asset('public/uploads/images/sliders/'.$item['image']) }}" alt="" width="350" height="250">
 		                                </td>
 		                                <td class="hidden-xs text-muted">
-		                                    <button type="button" class="btn btn-success btn-sm btn-edit-category btn-edit" data-id="{{ $item->id}}" data-placement="top" data-original-title=".btn .btn-success .btn-sm">Sửa</button>
+		                                <button type="button" class="btn btn-success btn-sm btn-edit-category btn-edit" data-id="{{ $item->id}}" data-placement="top" data-original-title=".btn .btn-success .btn-sm">Sửa</button>
                             				<button type="button" class="btn btn-danger btn-sm btn-del-cate btn-del" data-id="{{ $item->id }}" data-placement="top" data-original-title=".btn .btn-danger .btn-sm" >Xóa</button>
 		                                </td>
 		                            </tr>
@@ -54,23 +54,23 @@
         <!-- Modals sửa category -->
 <div id="edit-media-modal" class="modal fade" tabindex="-1" role="dialog"
 aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-lg">
-  <div class="modal-content">
-    <form action="{{url('admin/media/edit-media')}}" method="post" id="editSliderForm" role="form" onsubmit="return false;" enctype='multipart/form-data'>
-      <div class="modal-header">
-        <h4 class="modal-title">Sửa slide  &quot;
-          <span data-ajax="edit" data-field="html"></span>&quot;
-        </h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Hủy bỏ</button>
-        <button type="submit" class="btn btn-info waves-effect waves-light btn-edit-save"><small class="ti-pencil-alt mr-2"></small>Cập nhật</button>
-      </div>
-    </form>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form action="{{url('admin/media/edit-media')}}" method="post" id="editSliderForm" role="form" onsubmit="return false;" enctype='multipart/form-data'>
+        <div class="modal-header">
+          <h4 class="modal-title">Sửa slide  &quot;
+            <span data-ajax="edit" data-field="html"></span>&quot;
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Hủy bỏ</button>
+          <button type="submit" class="btn btn-info waves-effect waves-light btn-edit-save"><small class="ti-pencil-alt mr-2"></small>Cập nhật</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>             
 <script src="{{ asset('public/admin/js/dropify.js') }}"></script>
 <script>

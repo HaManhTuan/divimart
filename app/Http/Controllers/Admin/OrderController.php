@@ -90,6 +90,7 @@ class OrderController extends Controller {
 				foreach ($orderStatus->orders as $value) {
                     //print_r($value->quantity);
 					$incrementBuy = DB::table('products')->where(['id' => $value->product_id])->increment('buy_count',$value->quantity);
+					$incrementBuy1 = DB::table('product_attr')->where(['product_id' => $value->product_id, 'size_id' =>$value->size])->increment('buy_count',$value->quantity);
 				}
 				if ($incrementBuy) {
 					$msg = array(
@@ -304,7 +305,7 @@ class OrderController extends Controller {
 		else {
 			$msg = array(
 				'status' => '_error',
-				'msg'    => 'Có lỗi.',
+				'msg'    => 'Khách hàng này đã có mã giảm giá.',
 			);
 			return json_encode($msg);
 		}

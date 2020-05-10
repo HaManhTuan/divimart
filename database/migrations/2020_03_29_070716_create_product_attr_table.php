@@ -18,6 +18,7 @@ class CreateProductAttrTable extends Migration
             $table->integer('product_id')->unsigned()->index();
             $table->integer('size_id')->unsigned()->index();
             $table->integer('stock');
+            $table->integer('buy_count')->default('0');
             $table->foreign('product_id')
             ->references('id')->on('products')
             ->onUpdate('cascade')

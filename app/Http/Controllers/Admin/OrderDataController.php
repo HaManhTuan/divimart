@@ -16,25 +16,7 @@ use App\Mail\MailNotify;
 
 class OrderDataController extends Controller {
 	 function index(Request $request){
- 	// if(request()->ajax())
-  //    {
-  //     if(!empty($request->from_date))
-  //     {
-
-  //        print_r($data->from_date);
-  //        die();
-  //      // $data = DB::table('tbl_order')
-  //      //   ->whereBetween('order_date', array($request->from_date, $request->to_date))
-  //      //   ->get();
-  //     }
-  //     else
-  //     {
-  //      $data = DB::table('tbl_order')
-  //        ->get();
-  //     }
-  //     return datatables()->of($data)->make(true);
-  //    }
-		$orders = Order::with('orders')->get();
+		$orders = Order::with('orders')->orderBy('id','asc')->get();
 		 return view('admin.order.list')->with(compact('orders'));
 	}
 }

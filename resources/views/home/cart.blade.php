@@ -98,7 +98,7 @@
                     @if ($couponCus !='')
                     <form class="promo-code-form" action="{{ url('cart/coupon-cart') }}" method="POST" id="frmcoupon" onsubmit="return false;">@csrf
                         <select name="coupon_code" class="form-control" id="coupon_code" data-rule-required="true" data-msg-required="Vui lòng nhập mã giảm giá." style="width: 70%">
-                            <option disabled="" selected="">--Chọn--</option>
+                            <option disabled="" selected="">--Chọn mã giảm giá--</option>
                             <option value="{{ Auth::guard('customers')->user()->coupon }}">{{ Auth::guard('customers')->user()->coupon }}</option>
                         </select>
                         <button type="submit" class=" mb-2" id="apply_coupon">Gửi</button>
@@ -160,7 +160,7 @@
     	});
     	
     });
-                    $("#apply_coupon").click(function() {
+                $("#apply_coupon").click(function() {
                     $("#frmcoupon").validate({
                         submitHandler: function() {
                             let action = $("#frmcoupon").attr('action');

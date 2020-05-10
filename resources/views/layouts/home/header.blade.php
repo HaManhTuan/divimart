@@ -1,5 +1,4 @@
-
-  <header class="header-section">
+<header class="header-section">
     <div class="header-top wow fadeInDown" data-wow-delay=".25s">
       <div class="container">
         <div class="row">
